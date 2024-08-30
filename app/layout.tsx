@@ -5,6 +5,7 @@ import "./globals.css";
 import { Providers } from "./provider";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import Header from "./components/header";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -29,7 +30,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>{children}</Providers>
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
