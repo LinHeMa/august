@@ -2,15 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchSlashIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Header() {
   return (
     <div className="p-4 flex flex-col gap-2">
-      <section className="flex items-center justify-center">
+      <section className="flex items-center justify-center gap-2">
         <Button variant="ghost" size="icon">
           <SearchSlashIcon className="h-4 w-4" />
         </Button>
         <Input type="text" placeholder="keyword" />
+        <ModeToggle />
       </section>
       <section className="flex items-center justify-center overflow-x-scroll no-scrollbar">
         <Tabs defaultValue="inner-design" className="w-full">

@@ -45,7 +45,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -54,7 +58,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import {
   Tooltip,
   TooltipContent,
@@ -62,10 +71,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useSession } from "next-auth/react";
+import { useMutation } from "@tanstack/react-query";
+import { createUser } from "@/app/actions/users/createUser";
+import Error from "next/error";
 
 export function Dashboard() {
   const { data: session } = useSession();
-  console.log(session);
+  const {
+    mutate: server_createUser,
+    isPending: server_createUserPending,
+  } = useMutation({
+    mutationFn: createUser,
+  });
 
   return (
     <TooltipProvider>
@@ -77,7 +94,9 @@ export function Dashboard() {
               className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
             >
               <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-              <span className="sr-only">Acme Inc</span>
+              <span className="sr-only">
+                Acme Inc
+              </span>
             </Link>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -86,10 +105,14 @@ export function Dashboard() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Home className="h-5 w-5" />
-                  <span className="sr-only">Dashboard</span>
+                  <span className="sr-only">
+                    Dashboard
+                  </span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Dashboard</TooltipContent>
+              <TooltipContent side="right">
+                Dashboard
+              </TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -98,10 +121,14 @@ export function Dashboard() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <ShoppingCart className="h-5 w-5" />
-                  <span className="sr-only">Orders</span>
+                  <span className="sr-only">
+                    Orders
+                  </span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Orders</TooltipContent>
+              <TooltipContent side="right">
+                Orders
+              </TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -110,10 +137,14 @@ export function Dashboard() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Package className="h-5 w-5" />
-                  <span className="sr-only">Products</span>
+                  <span className="sr-only">
+                    Products
+                  </span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Products</TooltipContent>
+              <TooltipContent side="right">
+                Products
+              </TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -122,10 +153,14 @@ export function Dashboard() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Customers</span>
+                  <span className="sr-only">
+                    Customers
+                  </span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Customers</TooltipContent>
+              <TooltipContent side="right">
+                Customers
+              </TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -134,10 +169,14 @@ export function Dashboard() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <LineChart className="h-5 w-5" />
-                  <span className="sr-only">Analytics</span>
+                  <span className="sr-only">
+                    Analytics
+                  </span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Analytics</TooltipContent>
+              <TooltipContent side="right">
+                Analytics
+              </TooltipContent>
             </Tooltip>
           </nav>
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -148,10 +187,14 @@ export function Dashboard() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Settings className="h-5 w-5" />
-                  <span className="sr-only">Settings</span>
+                  <span className="sr-only">
+                    Settings
+                  </span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Settings</TooltipContent>
+              <TooltipContent side="right">
+                Settings
+              </TooltipContent>
             </Tooltip>
           </nav>
         </aside>
@@ -159,19 +202,30 @@ export function Dashboard() {
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
             <Sheet>
               <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className="sm:hidden">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="sm:hidden"
+                >
                   <PanelLeft className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
+                  <span className="sr-only">
+                    Toggle Menu
+                  </span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="sm:max-w-xs">
+              <SheetContent
+                side="left"
+                className="sm:max-w-xs"
+              >
                 <nav className="grid gap-6 text-lg font-medium">
                   <Link
                     href="#"
                     className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                   >
                     <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                    <span className="sr-only">Acme Inc</span>
+                    <span className="sr-only">
+                      Acme Inc
+                    </span>
                   </Link>
                   <Link
                     href="#"
@@ -215,7 +269,9 @@ export function Dashboard() {
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href="#">Dashboard</Link>
+                    <Link href="#">
+                      Dashboard
+                    </Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -226,7 +282,9 @@ export function Dashboard() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>All Products</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    All Products
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -246,7 +304,10 @@ export function Dashboard() {
                   className="overflow-hidden rounded-full"
                 >
                   <Image
-                    src={session?.user?.image || "/default.png"}
+                    src={
+                      session?.user?.image ||
+                      "/default.png"
+                    }
                     width={36}
                     height={36}
                     alt="Avatar"
@@ -255,12 +316,20 @@ export function Dashboard() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                  My Account
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem>
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  Support
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem>
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </header>
@@ -268,17 +337,30 @@ export function Dashboard() {
             <Tabs defaultValue="all">
               <div className="flex items-center">
                 <TabsList>
-                  <TabsTrigger value="all">All</TabsTrigger>
-                  <TabsTrigger value="active">Active</TabsTrigger>
-                  <TabsTrigger value="draft">Draft</TabsTrigger>
-                  <TabsTrigger value="archived" className="hidden sm:flex">
+                  <TabsTrigger value="all">
+                    All
+                  </TabsTrigger>
+                  <TabsTrigger value="active">
+                    Active
+                  </TabsTrigger>
+                  <TabsTrigger value="draft">
+                    Draft
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="archived"
+                    className="hidden sm:flex"
+                  >
                     Archived
                   </TabsTrigger>
                 </TabsList>
                 <div className="ml-auto flex items-center gap-2">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="h-8 gap-1">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-8 gap-1"
+                      >
                         <ListFilter className="h-3.5 w-3.5" />
                         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                           Filter
@@ -286,24 +368,47 @@ export function Dashboard() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                      <DropdownMenuLabel>
+                        Filter by
+                      </DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuCheckboxItem checked>
+                      <DropdownMenuCheckboxItem
+                        checked
+                      >
                         Active
                       </DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem>
+                        Draft
+                      </DropdownMenuCheckboxItem>
                       <DropdownMenuCheckboxItem>
                         Archived
                       </DropdownMenuCheckboxItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                  <Button size="sm" variant="outline" className="h-8 gap-1">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-8 gap-1"
+                  >
                     <File className="h-3.5 w-3.5" />
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                       Export
                     </span>
                   </Button>
-                  <Button size="sm" className="h-8 gap-1">
+                  <Button
+                    size="sm"
+                    className="h-8 gap-1"
+                    onClick={async () =>
+                      server_createUser({
+                        email:
+                          session?.user?.email ||
+                          "",
+                        name:
+                          session?.user?.name ||
+                          "",
+                      })
+                    }
+                  >
                     <PlusCircle className="h-3.5 w-3.5" />
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                       Add Product
@@ -314,9 +419,13 @@ export function Dashboard() {
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">
                   <CardHeader>
-                    <CardTitle>Products</CardTitle>
+                    <CardTitle>
+                      Products
+                    </CardTitle>
                     <CardDescription>
-                      Manage your products and view their sales performance.
+                      Manage your products and
+                      view their sales
+                      performance.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -324,10 +433,16 @@ export function Dashboard() {
                       <TableHeader>
                         <TableRow>
                           <TableHead className="hidden w-[100px] sm:table-cell">
-                            <span className="sr-only">Image</span>
+                            <span className="sr-only">
+                              Image
+                            </span>
                           </TableHead>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Status</TableHead>
+                          <TableHead>
+                            Name
+                          </TableHead>
+                          <TableHead>
+                            Status
+                          </TableHead>
                           <TableHead className="hidden md:table-cell">
                             Price
                           </TableHead>
@@ -338,7 +453,9 @@ export function Dashboard() {
                             Created at
                           </TableHead>
                           <TableHead>
-                            <span className="sr-only">Actions</span>
+                            <span className="sr-only">
+                              Actions
+                            </span>
                           </TableHead>
                         </TableRow>
                       </TableHeader>
@@ -357,7 +474,9 @@ export function Dashboard() {
                             Laser Lemonade Machine
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline">Draft</Badge>
+                            <Badge variant="outline">
+                              Draft
+                            </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             $499.99
@@ -370,20 +489,30 @@ export function Dashboard() {
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
+                              <DropdownMenuTrigger
+                                asChild
+                              >
                                 <Button
                                   aria-haspopup="true"
                                   size="icon"
                                   variant="ghost"
                                 >
                                   <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
+                                  <span className="sr-only">
+                                    Toggle menu
+                                  </span>
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuLabel>
+                                  Actions
+                                </DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -402,7 +531,9 @@ export function Dashboard() {
                             Hypernova Headphones
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline">Active</Badge>
+                            <Badge variant="outline">
+                              Active
+                            </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             $129.99
@@ -415,20 +546,30 @@ export function Dashboard() {
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
+                              <DropdownMenuTrigger
+                                asChild
+                              >
                                 <Button
                                   aria-haspopup="true"
                                   size="icon"
                                   variant="ghost"
                                 >
                                   <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
+                                  <span className="sr-only">
+                                    Toggle menu
+                                  </span>
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuLabel>
+                                  Actions
+                                </DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -447,7 +588,9 @@ export function Dashboard() {
                             AeroGlow Desk Lamp
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline">Active</Badge>
+                            <Badge variant="outline">
+                              Active
+                            </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             $39.99
@@ -460,20 +603,30 @@ export function Dashboard() {
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
+                              <DropdownMenuTrigger
+                                asChild
+                              >
                                 <Button
                                   aria-haspopup="true"
                                   size="icon"
                                   variant="ghost"
                                 >
                                   <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
+                                  <span className="sr-only">
+                                    Toggle menu
+                                  </span>
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuLabel>
+                                  Actions
+                                </DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -492,7 +645,9 @@ export function Dashboard() {
                             TechTonic Energy Drink
                           </TableCell>
                           <TableCell>
-                            <Badge variant="secondary">Draft</Badge>
+                            <Badge variant="secondary">
+                              Draft
+                            </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             $2.99
@@ -505,20 +660,30 @@ export function Dashboard() {
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
+                              <DropdownMenuTrigger
+                                asChild
+                              >
                                 <Button
                                   aria-haspopup="true"
                                   size="icon"
                                   variant="ghost"
                                 >
                                   <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
+                                  <span className="sr-only">
+                                    Toggle menu
+                                  </span>
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuLabel>
+                                  Actions
+                                </DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -534,10 +699,13 @@ export function Dashboard() {
                             />
                           </TableCell>
                           <TableCell className="font-medium">
-                            Gamer Gear Pro Controller
+                            Gamer Gear Pro
+                            Controller
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline">Active</Badge>
+                            <Badge variant="outline">
+                              Active
+                            </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             $59.99
@@ -550,20 +718,30 @@ export function Dashboard() {
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
+                              <DropdownMenuTrigger
+                                asChild
+                              >
                                 <Button
                                   aria-haspopup="true"
                                   size="icon"
                                   variant="ghost"
                                 >
                                   <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
+                                  <span className="sr-only">
+                                    Toggle menu
+                                  </span>
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuLabel>
+                                  Actions
+                                </DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -582,7 +760,9 @@ export function Dashboard() {
                             Luminous VR Headset
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline">Active</Badge>
+                            <Badge variant="outline">
+                              Active
+                            </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             $199.99
@@ -595,20 +775,30 @@ export function Dashboard() {
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
+                              <DropdownMenuTrigger
+                                asChild
+                              >
                                 <Button
                                   aria-haspopup="true"
                                   size="icon"
                                   variant="ghost"
                                 >
                                   <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
+                                  <span className="sr-only">
+                                    Toggle menu
+                                  </span>
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuLabel>
+                                  Actions
+                                </DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -618,8 +808,9 @@ export function Dashboard() {
                   </CardContent>
                   <CardFooter>
                     <div className="text-xs text-muted-foreground">
-                      Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                      products
+                      Showing{" "}
+                      <strong>1-10</strong> of{" "}
+                      <strong>32</strong> products
                     </div>
                   </CardFooter>
                 </Card>

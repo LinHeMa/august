@@ -5,10 +5,24 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSession, signIn, signOut } from "next-auth/react";
+import {
+  useSession,
+  signIn,
+  signOut,
+} from "next-auth/react";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
+
+type Session = {
+  user: {
+    name: string;
+    email: string;
+  };
+};
+
 export default function Login() {
   const { data: session } = useSession();
+
   if (session) {
     return redirect("/dashboard");
   }
@@ -17,9 +31,12 @@ export default function Login() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <h1 className="text-3xl font-bold">
+              Login
+            </h1>
             <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
+              Enter your email below to login to
+              your account
             </p>
           </div>
           <div className="grid gap-4">
@@ -34,7 +51,9 @@ export default function Login() {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">
+                  Password
+                </Label>
                 <Link
                   href="/forgot-password"
                   className="ml-auto inline-block text-sm underline"
@@ -42,9 +61,16 @@ export default function Login() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                required
+              />
             </div>
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+            >
               Login
             </Button>
             <Button
