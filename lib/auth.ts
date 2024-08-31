@@ -12,6 +12,7 @@ export const authOptions = {
   ],
   // Add other options like callbacks, pages, etc.
   callbacks: {
+    //@ts-ignore
     async signIn({ user, account }) {
       if (account.provider === "google") {
         try {
