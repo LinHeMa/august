@@ -1,3 +1,9 @@
+import ProfileComp from "./components/profile";
+
 export default function ProfilePage() {
-  return <div>profile</div>;
+  return (
+    <div>
+      <ProfileComp />
+    </div>
+  );
 }

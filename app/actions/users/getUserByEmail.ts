@@ -1,13 +1,11 @@
 "use server";
 import { headers } from "next/headers";
-const createUser = async ({
+const getUserByEmail = async ({
   email,
-  name,
 }: {
   email: string;
-  name: string;
 }) => {
-  if (!email || !name) return;
+  if (!email) return;
   // Get the host from the headers
   const host = headers().get("host");
   // Construct the full URL
@@ -15,7 +13,7 @@ const createUser = async ({
     process.env.NODE_ENV === "development"
       ? "http"
       : "https";
-  const apiUrl = `${protocol}://${host}/api/users/createUser`;
+  const apiUrl = `${protocol}://${host}/api/users/getUserByEmail`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -24,19 +22,18 @@ const createUser = async ({
       },
       body: JSON.stringify({
         email,
-        name,
       }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create user");
+      throw new Error("Failed to get user");
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error("Error get user:", error);
   }
 };
 
-export { createUser };
+export { getUserByEmail };

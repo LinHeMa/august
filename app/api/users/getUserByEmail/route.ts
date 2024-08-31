@@ -6,17 +6,16 @@ import {
 
 export async function POST(req: NextRequest) {
   const supabase = createClient();
-  const { email, name } = await req.json();
+  const { email } = await req.json();
   try {
     const {
       data: existingUser,
       error: checkError,
     } = await supabase
       .from("users")
-      .select("email")
+      .select("*")
       .eq("email", email)
       .single();
-
     if (
       checkError &&
       checkError.code !== "PGRST116"
@@ -24,26 +23,29 @@ export async function POST(req: NextRequest) {
       throw checkError;
     }
 
-    if (existingUser) {
-      return NextResponse.json(
-        { message: "User already exists" },
-        { status: 200 },
+    if (!existingUser) {
+      return new Response(
+        JSON.stringify({
+          error: "User not found",
+        }),
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
       );
     }
 
-    const { data, error } = await supabase
-      .from("users")
-      .insert({
-        email: email,
-        last_name: name,
-      })
-      .select();
-
-    if (error) throw error;
-
-    return NextResponse.json(data, {
-      status: 201,
-    });
+    return new Response(
+      JSON.stringify(existingUser),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
   } catch (error) {
     console.error("Error creating user:", error);
     return NextResponse.json(
